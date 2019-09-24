@@ -96,7 +96,7 @@ $(document).ready(function () {
                                         }
                                         console.info(listaFiseFiliala);
                                         for (fisa in listaFiseFiliala) {
-                                            var imei = listaFiseFiliala[fisa][5];
+                                            var imei = listaFiseFiliala[fisa][7];
 
                                             var problema = listaFiseFiliala[fisa][11];
                                             var contact = listaFiseFiliala[fisa][9];

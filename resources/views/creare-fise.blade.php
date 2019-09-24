@@ -50,9 +50,7 @@
                                     <input name="email" id="nr_card" placeholder="with a placeholder" type="text" class="form-control"></div>
                             </div>
                             <div class="col-md-4">
-                                <div class="position-relative form-group">
-                                    <label for="data1" class="">Data</label>
-                                    <input name="email" id="data1" placeholder="with a placeholder" type="date" class="form-control"></div>
+
                             </div>
 
                             <div class="col-md-8">
@@ -64,9 +62,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="position-relative form-group">
-                                    <label for="data2" class="">Data livrarii</label>
-                                    <input name="email" id="data2" placeholder="with a placeholder" type="date" class="form-control"></div>
+
                             </div>
 
                             <div class="col-md-8">
@@ -183,11 +179,25 @@
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="data_achizitie" class="">Data achizitiei</label>
+                                    <input name="email" id="data_achizitie" placeholder="with a placeholder" type="date" class="form-control"></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    <label for="model_telefon" class="">Model telefon</label>
+                                    <input name="email" id="model_telefon" placeholder="with a placeholder" type="date" class="form-control"></div>
+                            </div>
+                        </div>
+
                         <h5 class="card-title"> Observatii </h5>
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div class="position-relative form-group">
-                                    <label for="sursa" class="">Observatii</label>
+                                    <label for="observatii" class="">Observatii</label>
                                     <input name="email" id="observatii" placeholder="with a placeholder" type="text" class="form-control"></div>
                             </div>
                         </div>
@@ -196,7 +206,7 @@
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div class="position-relative form-group">
-                                    <label for="sursa" class="">Defect</label>
+                                    <label for="defect" class="">Defect</label>
                                     <input name="email" id="defect" placeholder="with a placeholder" type="text" class="form-control"></div>
                             </div>
                             <button class="mt-2 btn btn-primary" type = "submit" id = "createButton">Trimite in service</button>

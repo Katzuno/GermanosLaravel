@@ -12,6 +12,10 @@
 */
 Auth::routes();
 
+Route::get('/', function () {
+    return view('listeaza-fise');
+})->middleware('auth');
+
 
 Route::get('/dashboard', function () {
     return view('listeaza-fise');
@@ -19,15 +23,15 @@ Route::get('/dashboard', function () {
 
 Route::get('/create-fisa', function () {
     return view('creare-fise');
-})->name('create-fisa');
+})->middleware('auth')->name('create-fisa');
 
 Route::get('/verificare-imei', function () {
     return view('verificare-imei');
-})->name('check-fisa');
+})->middleware('auth')->name('check-fisa');
 
 Route::get('/logout', function ()   {
     Auth::logout();
     return redirect(route('login'));
-})->name('logout');
+})->middleware('auth')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
