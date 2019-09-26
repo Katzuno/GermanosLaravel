@@ -24,24 +24,6 @@
                 <div class="card-body">
                     <h5 class="card-title">Fisa Service</h5>
                     <form class="">
-                        <div class="form-row">
-                            <div class="col-md-4">
-                                <div class="position-relative form-group">
-                                    <label for="serie" class="">Serie</label>
-                                    <input name="email" id="serie" placeholder="with a placeholder" type="text" class="form-control"></div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="position-relative form-group">
-                                    <label for="tip" class="">Tip</label>
-                                    <input name="email" id="tip" placeholder="with a placeholder" type="text" class="form-control"></div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="position-relative form-group">
-                                    <label for="numar" class="">Numar</label>
-                                    <input name="email" id="numar" placeholder="with a placeholder" type="number" class="form-control"></div>
-                            </div>
-                        </div>
-
                         <h5 class="card-title"> General Data </h5>
                         <div class="form-row">
                             <div class="col-md-8">
@@ -189,7 +171,7 @@
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
                                     <label for="model_telefon" class="">Model telefon</label>
-                                    <input name="email" id="model_telefon" placeholder="with a placeholder" type="date" class="form-control"></div>
+                                    <input name="email" id="model_telefon" placeholder="with a placeholder" type="text" class="form-control"></div>
                             </div>
                         </div>
 

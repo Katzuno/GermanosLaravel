@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    var softoneUrl = "https://cosmossales17.oncloud.gr/s1services";
+    var proxy = 'https://cors-anywhere.herokuapp.com/';
+    var softoneUrl = proxy + "https://cosmossales17.oncloud.gr/s1services";
     var username = "WSgermanos";
     var password = "FKlkf0o3F3;lk;dfkl3#4lkwe;dW";
 
@@ -155,6 +156,9 @@ $(document).ready(function () {
 
         let imeiBool = $("#checkbox_imei").val();
         let imeiField = $("#text_imei").val();
+        let modelTelefon = $("#model_telefon").val();
+        let dataAchizitie = $("#data_achizitie").val();
+
         var postFIsaService =
             {
                 "service": "setData",
@@ -187,12 +191,13 @@ $(document).ready(function () {
                             "MTRL": 83503,
                             "CCCBOOL01": imeiBool,
                             "CCCIMEI": imeiField,
-                            "DATE01": "",
-                            "CCCEXP": "TELEFON TEST"
+                            "DATE01": modelTelefon,
+                            "CCCEXP": dataAchizitie
                         }
                     ]
                 }
             };
+
 
         $.post(softoneUrl, JSON.stringify(loginData))
             .done(function (response) {

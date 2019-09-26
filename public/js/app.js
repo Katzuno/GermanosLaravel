@@ -49507,8 +49507,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\SafetyBox-Laravel6\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\SafetyBox-Laravel6\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/erik/Desktop/PhpStorm-191.7479.51/projects/GermanosLaravel/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/erik/Desktop/PhpStorm-191.7479.51/projects/GermanosLaravel/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
