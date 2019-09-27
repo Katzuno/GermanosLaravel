@@ -1,10 +1,10 @@
-function appendToFiseTable(id, client, oras, imei, table_id = "lista-fise") {
+function appendToFiseTable(id, client, oras, imei, modifica, table_id = "lista-fise") {
     let row = "<tr>\n" +
         "                                                <th scope=\"row\">" + id + "</th>\n" +
         "                                                <td>" + client + "</td>\n" +
         "                                                <td>" + oras + "</td>\n" +
         "                                                <td>" + imei + "</td>\n" +
-        "                                                <td>Modifica</td>\n" +
+        "                                                <td>" + modifica + "</td>\n" +
         "                                            </tr>";
     $("#" + table_id).append(row);
 }
@@ -14,7 +14,7 @@ $.urlParam = function (name) {
     if (results)
         return results[1];
     return 0;
-}
+};
 
 $(document).ready(function () {
 
@@ -103,7 +103,9 @@ $(document).ready(function () {
                                             var contact = listaFiseFiliala[fisa][9];
                                             var client = listaFiseFiliala[fisa][6];
                                             var id = listaFiseFiliala[fisa][0];
-                                            appendToFiseTable(id, client, contact, imei);
+
+                                            var modificaUrl = "<a href = 'create-fisa?id_fisa=" + listaFiseFiliala[fisa][5] + "'> Modifica </a>";
+                                            appendToFiseTable(id, client, contact, imei, modificaUrl);
                                         }
                                     });
                             }

@@ -32,6 +32,18 @@
         </div>
     </div>
     @include('footer')
-    <script type="text/javascript" src="../resources/js/api.js"></script>
+    <script type = "text/javascript">
+        $("#start-search").click(function(event) {
+            if ($("#searched-imei").val()   )
+            {
+                url = "{{ route('index')  }}?imei=" + $("#searched-imei").val();
+                $(location).attr("href", url);
+            }
+            else
+            {
+                alert("Please type an IMEI to search for");
+            }
+        });
+    </script>
     </body>
     </html>
