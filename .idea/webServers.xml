@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7c9a0216-6664-4589-9c62-1e07752622cc" name="ITHIT" url="http://ithit.ro">
+        <fileTransfer host="ithit.ro" port="24" rootFolder="/home/ithit/dev.ithit.ro/safetybox" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="24" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

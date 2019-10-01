@@ -6,8 +6,8 @@ $.urlParam = function (name) {
 }
 
 $(document).ready(function () {
-
-    var proxy = 'https://cors-anywhere.herokuapp.com/';
+    //var proxy = "https://cors-anywhere.herokuapp.com/";
+    var proxy = "api/proxy?url=";
     var softoneUrl = proxy + "https://cosmossales17.oncloud.gr/s1services";
     var username = "WSgermanos";
     var password = "FKlkf0o3F3;lk;dfkl3#4lkwe;dW";
@@ -237,6 +237,10 @@ $(document).ready(function () {
         let imeiField = $("#text_imei").val();
         let modelTelefon = $("#model_telefon").val();
         let dataAchizitie = $("#data_achizitie").val();
+
+        //dataAchizitie = dataAchizitie.getFullYear() + "/" + (dataAchizitie.getMonth() + 1) + "/" + dataAchizitie.getDate();
+
+        console.info(dataAchizitie);
 
         var postFIsaService =
             {
