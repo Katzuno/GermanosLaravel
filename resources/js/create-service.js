@@ -3,7 +3,7 @@ $.urlParam = function (name) {
     if (results)
         return results[1];
     return 0;
-}
+};
 
 $(document).ready(function () {
     //var proxy = "https://cors-anywhere.herokuapp.com/";
@@ -233,12 +233,22 @@ $(document).ready(function () {
         let observatii = $("#observatii").val();
         let defect = $("#defect").val();
 
-        let imeiBool = $("#checkbox_imei").val();
+        let imeiBool;
+        if ( $("#checkbox_imei:checked").length > 0 )
+        {
+            imeiBool = 1;
+        }
+        else
+        {
+            imeiBool = 0;
+        }
+
+        console.warn(imeiBool);
         let imeiField = $("#text_imei").val();
         let modelTelefon = $("#model_telefon").val();
-        let dataAchizitie = $("#data_achizitie").val();
+        let dataAchizitie = new Date($("#data_achizitie").val() );
 
-        //dataAchizitie = dataAchizitie.getFullYear() + "/" + (dataAchizitie.getMonth() + 1) + "/" + dataAchizitie.getDate();
+        dataAchizitie = dataAchizitie.getFullYear() + "/" + (dataAchizitie.getMonth() + 1) + "/" + dataAchizitie.getDate();
 
         console.info(dataAchizitie);
 
@@ -274,8 +284,8 @@ $(document).ready(function () {
                             "MTRL": 83503,
                             "CCCBOOL01": imeiBool,
                             "CCCIMEI": imeiField,
-                            "DATE01": modelTelefon,
-                            "CCCEXP": dataAchizitie
+                            "DATE01": dataAchizitie,
+                            "CCCEXP": modelTelefon
                         }
                     ]
                 }
@@ -292,9 +302,12 @@ $(document).ready(function () {
                             .done(function (response) {
                                 console.warn(postFIsaService);
                                 console.info(response);
-                                if (response.success == "false") {
+                                console.error(response);
+                                console.error(response.success);
+                                if (response.success === false) {
                                     alert(response.error);
                                 } else {
+                                    console.info(response);
                                     alert("succesfully created");
                                 }
                             });

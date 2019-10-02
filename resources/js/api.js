@@ -19,7 +19,8 @@ $.urlParam = function (name) {
 $(document).ready(function () {
 
     console.warn($.urlParam('imei'));
-    var proxy = 'https://cors-anywhere.herokuapp.com/';
+    //var proxy = 'https://cors-anywhere.herokuapp.com/';
+    var proxy = "api/proxy?url=";
     var softoneUrl = proxy + "https://cosmossales17.oncloud.gr/s1services";
     var username = "WSgermanos";
     var password = "FKlkf0o3F3;lk;dfkl3#4lkwe;dW";
