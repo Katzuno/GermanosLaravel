@@ -125,7 +125,9 @@ $(document).ready(function () {
                                             var contact = response.Filiala;
                                             var client = response.Nume;
                                             var id = response.CODE;
-                                            appendToFiseTable(id, client, contact, imei);
+
+                                            var actionUrl = "<a href = 'create-fisa?create_from_imei=1&code=" + id + "&imei=" + imei + "&model_telefon=" + problema + "'> Creeaza fisa service </a>";
+                                            appendToFiseTable(id, client, contact, imei, actionUrl);
                                         }
                                     });
                             }

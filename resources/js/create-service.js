@@ -218,6 +218,32 @@ $(document).ready(function () {
                     });
             });
     }
+
+    if ($.urlParam('create_from_imei') !== 0) {
+        var imei = $.urlParam('imei')
+        var modelTelefon = $.urlParam('model_telefon');
+        var id = $.urlParam('code');
+        var undf = 'UNDEFINED';
+
+        //$("#agent").val(undf);
+        //$("#nume_client").val(client);
+        //$("#delegat").val(fisaCorecta[8]);
+        //$("#cnp").val(undf);
+        //$("#email").val(undf + '@undefined.s1');
+        //$("#phone").val(contact);
+        //$("#parola").val(undf);
+        //$("#sursa").val(fisaCorecta[4]);
+        //$("#canal").val(fisaCorecta[12]);
+        //$("#stare2").val(undf);
+        //$("#observatii").val(fisaCorecta[16]);
+        //$("#defect").val(problema);
+
+        $("#checkbox_imei").val(1);
+        $("#text_imei").val(imei);
+        $("#model_telefon").val(modelTelefon);
+        $("#data_achizitie").val(undf);
+    }
+
     $("#createButton").click(function (event) {
         event.preventDefault();
         let agent = $("#agent").val();
