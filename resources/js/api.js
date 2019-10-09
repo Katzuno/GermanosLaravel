@@ -47,7 +47,7 @@ $(document).ready(function () {
         "clientId": "",
         "appId": "2001",
         "object": "SALDOC",
-        "list": "Lista service IqFix",
+        "list": "Lista service IqFix WebService",
         "filters": ""
     };
 
@@ -90,24 +90,20 @@ $(document).ready(function () {
                             {
                                 $.post(softoneUrl, JSON.stringify(getBrowserListe))
                                     .done(function (response) {
+                                        console.info(response);
                                         response = response.rows;
-                                        for (i in response) {
-                                            if (response[i][8].toLowerCase().includes(filialaGermanos)) {
-                                                listaFiseFiliala.push(response[i]);
-                                            }
-                                        }
-                                        console.info(listaFiseFiliala);
-                                        for (fisa in listaFiseFiliala) {
-                                            var imei = listaFiseFiliala[fisa][7];
 
-                                            var problema = listaFiseFiliala[fisa][11];
-                                            var contact = listaFiseFiliala[fisa][9];
-                                            var client = listaFiseFiliala[fisa][6];
-                                            var id = listaFiseFiliala[fisa][0];
+                                        for (row in response) {
+                                            var imei = response[row][4];
 
-                                            var modificaUrl = "<a href = 'create-fisa?id_fisa=" + listaFiseFiliala[fisa][5] + "'> Modifica </a>";
-                                            appendToFiseTable(id, client, contact, imei, modificaUrl);
+                                            var data = response[row][2];
+                                            var client = response[row][3];
+                                            var id = response[row][0];
+
+                                            var modificaUrl = "<a href = 'create-fisa?id_fisa=" + id + "'> Modifica </a>";
+                                            appendToFiseTable(id, client, data, imei, modificaUrl);
                                         }
+
                                     });
                             }
                             else
