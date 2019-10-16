@@ -35,7 +35,7 @@ $(document).ready(function () {
         "appId": "2001",
         "object": "SALDOC",
         "list": "Lista service IqFix WebService",
-        "filters": "4449883"
+        "filters": "SALDOC.FINDOC=4449883"
     };
 
     var reqId = "";
@@ -174,26 +174,22 @@ $(document).ready(function () {
                         getBrowserInfo.clientId = clientId;
                         $.post(softoneUrl, JSON.stringify(getBrowserInfo))
                             .done(function (response) {
-                                console.info('getbrowserinfo response');
-                                console.info(response);
                                 getBrowserListe.clientID = clientId;
                                 reqId = response.reqID;
                                 getBrowserListe.reqID = reqId;
+                                console.warn(reqId);
+                                console.warn(clientId);
                                 $.post(softoneUrl, JSON.stringify(getBrowserListe))
                                     .done(function (response) {
                                         response = response.rows;
-                                        for (i in response) {
-                                            if (response[i][8].toLowerCase().includes(filialaGermanos) && response[i][5] == $.urlParam('id_fisa')) {
-                                                fisaCorecta = response[i];
-                                            }
-                                        }
-                                        console.info(fisaCorecta);
-                                        var imei = fisaCorecta[7];
+                                        console.info(response);
 
-                                        var problema = fisaCorecta[11];
-                                        var contact = fisaCorecta[9];
-                                        var client = fisaCorecta[6];
-                                        var id = fisaCorecta[0];
+                                        var imei = response[7];
+
+                                        var problema = response[11];
+                                        var contact = response[9];
+                                        var client = response[6];
+                                        var id = response[0];
                                         var undf = 'UNDEFINED';
 
                                         $("#agent").val(undf);
