@@ -29,26 +29,16 @@ $(document).ready(function () {
         "refid": "1001"
     };
 
-    var getBrowserInfo = {
-        "service": "getBrowserInfo",
-        "clientId": "",
+    var getData = {
+        "service": "getData",
+        "clientID": clientId,
         "appId": "2001",
-        "object": "SALDOC",
-        "list": "Lista service IqFix WebService",
-        "filters": "SALDOC.FINDOC=4449883"
+        "OBJECT": "SALDOC",
+        "FORM":"Service IqFix WebService",
+        "KEY": 0
     };
 
     var reqId = "";
-
-    var getBrowserListe = {
-        "service": "getBrowserData",
-        "clientID": "",
-        "appId": "2001",
-        "reqID": "",
-        "START": 0,
-        "LIMIT": 10000
-    };
-
 
     var selectorClient = {
         "service": "getSelectorData",
@@ -171,54 +161,63 @@ $(document).ready(function () {
                 $.post(softoneUrl, JSON.stringify(authData))
                     .done(function (response) {
                         clientId = response.clientID;
-                        getBrowserInfo.clientId = clientId;
-                        $.post(softoneUrl, JSON.stringify(getBrowserInfo))
+                        getData.clientID = clientId;
+                        getData.KEY = $.urlParam('id_fisa');
+                        console.warn(getData);
+                        $.post(softoneUrl, JSON.stringify(getData))
                             .done(function (response) {
-                                getBrowserListe.clientID = clientId;
-                                reqId = response.reqID;
-                                getBrowserListe.reqID = reqId;
-                                console.warn(reqId);
-                                console.warn(clientId);
-                                $.post(softoneUrl, JSON.stringify(getBrowserListe))
-                                    .done(function (response) {
-                                        response = response.rows;
-                                        console.info(response);
+                                console.info(response);
+                                response = response.data;
+                                let saldoc = response.SALDOC[0];
+                                let itelines = response.ITELINES[0];
 
-                                        var imei = response[7];
+                                console.info(response);
 
-                                        var problema = response[11];
-                                        var contact = response[9];
-                                        var client = response[6];
-                                        var id = response[0];
-                                        var undf = 'UNDEFINED';
+                                var imei = itelines.CCCIMEI;
+                                var modelTelefon = itelines.CCCEXP;
 
-                                        $("#agent").val(undf);
-                                        $("#nume_client").val(client);
-                                        $("#delegat").val(fisaCorecta[8]);
-                                        $("#cnp").val(undf);
-                                        $("#email").val(undf + '@undefined.s1');
-                                        $("#phone").val(contact);
-                                        $("#parola").val(undf);
-                                        $("#sursa").val(fisaCorecta[4]);
-                                        $("#canal").val(fisaCorecta[12]);
-                                        $("#stare2").val(undf);
-                                        $("#observatii").val(fisaCorecta[16]);
-                                        $("#defect").val(problema);
+                                let dataAchizitie = new Date( itelines.DATE01 );
 
-                                        $("#checkbox_imei").val(1);
-                                        $("#text_imei").val(imei);
-                                        $("#model_telefon").val(undf);
-                                        $("#data_achizitie").val(undf);
+                                dataAchizitie = dataAchizitie.getFullYear() + "-" + (dataAchizitie.getMonth() + 1) + "-" + dataAchizitie.getDate();
 
-                                    });
 
+                                var agent = saldoc.SALESMAN;
+                                var nume = saldoc.VARCHAR01;
+                                var delegat = saldoc.CCCDELEGAT;
+                                var cnp = saldoc.VARCHAR02L;
+                                var email = saldoc.CCCEMAIL;
+                                var telefon = saldoc.CCCTELEFON;
+                                var access_pass = saldoc.CCCSERIEBI;
+                                var sursa = saldoc.CCCSURSA;
+                                var canal = saldoc.CCCCANAL;
+                                var stare = saldoc.CCCNUM03;
+                                var observatii = saldoc.COMMENTS;
+                                var defect = saldoc.COMMENTS1;
+
+                                $("#agent").val(agent);
+                                $("#nume_client").val(nume);
+                                $("#delegat").val(delegat);
+                                $("#cnp").val(cnp);
+                                $("#email").val(email);
+                                $("#phone").val(telefon);
+                                $("#parola").val(access_pass);
+                                $("#sursa").val(sursa);
+                                $("#canal").val(canal);
+                                $("#stare2").val(stare);
+                                $("#observatii").val(observatii);
+                                $("#defect").val(defect);
+
+                                $("#checkbox_imei").val(1);
+                                $("#text_imei").val(imei);
+                                $("#model_telefon").val(modelTelefon);
+                                $("#data_achizitie").val(dataAchizitie);
                             });
                     });
             });
     }
 
     if ($.urlParam('create_from_imei') !== 0) {
-        var imei = $.urlParam('imei')
+        var imei = $.urlParam('imei');
         var modelTelefon = $.urlParam('model_telefon');
         var id = $.urlParam('code');
         var undf = 'UNDEFINED';
