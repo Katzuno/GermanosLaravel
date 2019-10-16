@@ -100,6 +100,9 @@ $(document).ready(function () {
                                             var client = response[row][3];
                                             var id = response[row][0];
 
+                                            id = id.split(";");
+                                            id = id[1];
+
                                             var modificaUrl = "<a href = 'create-fisa?id_fisa=" + id + "'> Modifica </a>";
                                             appendToFiseTable(id, client, data, imei, modificaUrl);
                                         }

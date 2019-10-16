@@ -34,8 +34,8 @@ $(document).ready(function () {
         "clientId": "",
         "appId": "2001",
         "object": "SALDOC",
-        "list": "Lista service IqFix",
-        "filters": ""
+        "list": "Lista service IqFix WebService",
+        "filters": "4449883"
     };
 
     var reqId = "";
@@ -174,6 +174,8 @@ $(document).ready(function () {
                         getBrowserInfo.clientId = clientId;
                         $.post(softoneUrl, JSON.stringify(getBrowserInfo))
                             .done(function (response) {
+                                console.info('getbrowserinfo response');
+                                console.info(response);
                                 getBrowserListe.clientID = clientId;
                                 reqId = response.reqID;
                                 getBrowserListe.reqID = reqId;
