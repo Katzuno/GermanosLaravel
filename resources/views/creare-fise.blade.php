@@ -23,7 +23,8 @@
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <h5 class="card-title">Fisa Service</h5>
-                    <form class="">
+
+                    <form class="" id = "completare_fisa">
                         <h5 class="card-title"> General Data </h5>
                         <div class="form-row">
                             <div class="col-md-8">
@@ -192,13 +193,24 @@
                                     <input name="email" id="defect" placeholder="with a placeholder" type="text" class="form-control"></div>
                             </div>
                             <button class="mt-2 btn btn-primary" type = "submit" id = "createButton">Trimite in service</button>
+
+                        </div>
+                        <div class = "form-row">
+                            <button class="mt-2 btn btn-primary" id = "downloadPDFBtn">Descarca PDF cu date curente</button>
                         </div>
                     </form>
+
+
                 </div>
             </div>
         </div>
     </div>
+    @include('printed_pdf')
     @include('footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js" type="text/javascript"></script>
+
     <script type="text/javascript" src="../resources/js/create-service.js"></script>
     </body>
     </html>
