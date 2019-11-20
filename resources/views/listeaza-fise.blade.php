@@ -33,6 +33,7 @@
                                     <th>Contact</th>
                                     <th>Imei</th>
                                     <th>Actions</th>
+                                    <th>Swap</th>
                                 </tr>
                                 </thead>
                                 <tbody id = "lista-fise">

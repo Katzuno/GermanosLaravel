@@ -18,3 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/proxy', 'ProxyController@addCors')->name('proxy');
+Route::post('/createDoc/{id}/{swap}', 'FisaController@createFisa')->name('createDoc');
+Route::get('/selectSwap/{id}', 'FisaController@selectSwap')->name('selectSwap');

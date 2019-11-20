@@ -77,6 +77,16 @@
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label for="checkbox_imei" class="">Doreste SWAP </label>
+                                    <input style = "margin-left: 2%;" name="swap" id="checkbox_swap" type="checkbox" class="form-check-input">
+                                </div>
+                            </div>
+
+                        </div>
+
                         <h5 class="card-title"> Detalii client </h5>
                         <div class="form-row">
                             <div class="col-md-4">

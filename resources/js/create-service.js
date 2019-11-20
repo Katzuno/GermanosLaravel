@@ -155,6 +155,7 @@ $(document).ready(function () {
             });
 
         if ($.urlParam('id_fisa') !== 0) {
+
             $.post(softoneUrl, JSON.stringify(loginData))
                 .done(function (response) {
                     authData.clientID = response.clientID;
@@ -170,8 +171,6 @@ $(document).ready(function () {
                                     response = response.data;
                                     let saldoc = response.SALDOC[0];
                                     let itelines = response.ITELINES[0];
-
-                                    console.info(response);
 
                                     var imei = itelines.CCCIMEI;
                                     var modelTelefon = itelines.CCCEXP;
@@ -207,10 +206,23 @@ $(document).ready(function () {
                                     $("#observatii").val(observatii);
                                     $("#defect").val(defect);
 
-                                    $("#checkbox_imei").val(1);
+                                    $("#checkbox_imei").attr('checked', true);
                                     $("#text_imei").val(imei);
                                     $("#model_telefon").val(modelTelefon);
                                     $("#data_achizitie").val(dataAchizitie);
+
+                                    $.get('api/selectSwap/' + $.urlParam('id_fisa'))
+                                        .done(function (response) {
+                                            swap1 = response.swap;
+                                            if (swap1)
+                                            {
+                                                $("#checkbox_swap").attr('checked', true);
+                                            }
+                                            else
+                                            {
+                                                $("#checkbox_swap").attr('checked', false);
+                                            }
+                                        });
                                 });
                         });
                 });
@@ -280,7 +292,7 @@ $(document).ready(function () {
                     "clientID": clientId,
                     "appId": "2001",
                     "OBJECT": "SALDOC",
-                    "FORM": "Service IqFix",
+                    "FORM": "Service IqFix WebService",
                     "KEY": "",
                     "data": {
                         "SALDOC": [
@@ -298,7 +310,8 @@ $(document).ready(function () {
                                 "CCCCANAL": canal,
                                 "CCCNUM03": stare,
                                 "COMMENTS": observatii,
-                                "COMMENTS1": defect
+                                "COMMENTS1": defect,
+                                "FULLYTRANSF": 3
                             }
                         ],
                         "ITELINES": [
@@ -313,6 +326,47 @@ $(document).ready(function () {
                     }
                 };
 
+            var postFisaService2 = {
+                "service": "setData",
+                "clientID": clientId,
+                "appId": "2001",
+                "OBJECT": "SALDOC",
+                "FORM": "Fisa service WebService",
+                "KEY": "",
+                "data": {
+                    "SALDOC": [
+                        {
+                            "SERIES": 8701,
+                            "CMPFINCODE": "",
+                            "TRDR": 96991,
+                            "SALESMAN": agent,
+                            "TRNDATE": dataAchizitie,
+                            "SOCURRENCY": 123,
+                            "LRATE": 1,
+                            "TRDRRATE": 1,
+                            "CCCCANAL": canal,
+                            "COMMENTS": modelTelefon,
+                            "FINDOCS": "",
+                            "CONVMODE": 2
+                        }
+                    ],
+                    "SRVLINES": [
+                        {
+                            "MTRL": 23050,
+                            "QTY1": 1,
+                            "FINDOCS": ""
+                        }
+                    ],
+                    "CCCSRVC": [
+                        {
+                            "MTRL": 83503,
+                            "IMEI": imeiField,
+                            "NAME2": modelTelefon
+                        }
+                    ]
+                }
+            };
+
 
             $.post(softoneUrl, JSON.stringify(loginData))
                 .done(function (response) {
@@ -320,19 +374,48 @@ $(document).ready(function () {
                     $.post(softoneUrl, JSON.stringify(authData))
                         .done(function (response) {
                             postFIsaService.clientID = response.clientID;
+                            postFisaService2.clientID = response.clientID;
+                            getData.clientID = response.clientID;
+
                             $.post(softoneUrl, JSON.stringify(postFIsaService))
                                 .done(function (response) {
-                                    console.warn(postFIsaService);
-                                    console.info(response);
-                                    console.error(response);
-                                    console.error(response.success);
                                     if (response.success === false) {
                                         alert(response.error);
                                     } else {
-                                        console.info(response);
-                                        alert("succesfully created");
+                                        id_fisa = response.id;
+                                        getData.KEY = id_fisa;
+                                        postFisaService2.data.SALDOC[0].FINDOCS = id_fisa;
+                                        postFisaService2.data.SRVLINES[0].FINDOCS = id_fisa;
+
+                                        getData["LOCATEINFO"] = "SALDOC:CMPFINCODE";
+
+                                        $.post(softoneUrl, JSON.stringify(getData))
+                                            .done(function (response) {
+                                                var fincode = response.data.SALDOC[0].FINCODE;
+                                                postFisaService2.data.SALDOC[0].CMPFINCODE = "FP-0" + fincode.substring(5, 13);
+
+                                                $.post(softoneUrl, JSON.stringify(postFisaService2))
+                                                    .done(function (response) {
+                                                        console.log(response);
+                                                        if ($("#checkbox_swap:checked").length > 0) {
+                                                            swap = 1;
+                                                        } else {
+                                                            swap = 0;
+                                                        }
+
+                                                        $.post('api/createDoc/' + id_fisa + '/' + swap)
+                                                            .done(function (response) {
+                                                                console.log(response);
+                                                                alert('Succesfully created document with id ' + id_fisa);
+                                                            });
+                                                    });
+
+
+                                            });
+
+
                                     }
-                                });
+                                })
                         });
                 });
         });
@@ -355,7 +438,13 @@ $(document).ready(function () {
             let companie = $("#client").val();
             let adresa = $("#adresa").val();
             let oras = $("#oras").val();
-            populateHtmlTemplate(nrCard, nume, companie, adresa, oras, 'undf', telefon, email, ' undf', modelTelefon, imei, "8511 - 96991", access_pass, defect, stare, sursa + " " + canal);
+
+            if ($("#checkbox_swap:checked").length > 0) {
+                swap = 'Da';
+            } else {
+                swap = 'Nu';
+            }
+            populateHtmlTemplate(nrCard, nume, companie, adresa, oras, 'undf', telefon, email, ' undf', modelTelefon, imei, "8511 - 96991", access_pass, defect, stare, sursa + " " + canal, swap);
 
             generatePDF();
     });
@@ -378,7 +467,7 @@ $(document).ready(function () {
 
         function populateHtmlTemplate(nrFisa, fullName, company, address, oras,
                                       judet, nrTel, email, producator, model,
-                                      imei, serieNr, accessPass, defect, stare, how) {
+                                      imei, serieNr, accessPass, defect, stare, how, swap) {
             $("#tmp_nr_fisa").html(nrFisa);
             $("#tmp_full_name").html(fullName);
             $("#tmp_company").html(company);
@@ -395,8 +484,7 @@ $(document).ready(function () {
             $("#tmp_defect").html(defect);
             $("#tmp_stare").html(stare);
             $("#tmp_how").html(how);
-
-            generatePDF();
+            $("#doreste_swap").html(swap);
 
         }
     }

@@ -1,12 +1,17 @@
 function appendToFiseTable(id, client, oras, imei, modifica, table_id = "lista-fise") {
-    let row = "<tr>\n" +
-        "                                                <th scope=\"row\">" + id + "</th>\n" +
-        "                                                <td>" + client + "</td>\n" +
-        "                                                <td>" + oras + "</td>\n" +
-        "                                                <td>" + imei + "</td>\n" +
-        "                                                <td>" + modifica + "</td>\n" +
-        "                                            </tr>";
-    $("#" + table_id).append(row);
+    $.get('api/selectSwap/' + id)
+        .done(function (response) {
+            swap1 = response.swap;
+            let row = "<tr>\n" +
+                "                                                <th scope=\"row\">" + id + "</th>\n" +
+                "                                                <td>" + client + "</td>\n" +
+                "                                                <td>" + oras + "</td>\n" +
+                "                                                <td>" + imei + "</td>\n" +
+                "                                                <td>" + modifica + "</td>\n" +
+                "                                                <td>" + swap1 + "</td>\n" +
+                "                                            </tr>";
+            $("#" + table_id).append(row);
+        });
 }
 
 $.urlParam = function (name) {
