@@ -193,6 +193,8 @@ $(document).ready(function () {
                                     var observatii = saldoc.COMMENTS;
                                     var defect = saldoc.COMMENTS1;
 
+                                    $("#createButton").attr("id", "updateButton");
+                                    $("#updateButton").html("Modifcare swap");
                                     $("#agent").val(agent);
                                     $("#nume_client").val(nume);
                                     $("#delegat").val(delegat);
@@ -254,6 +256,23 @@ $(document).ready(function () {
             $("#model_telefon").val(modelTelefon);
             $("#data_achizitie").val(undf);
         }
+
+
+    $("#updateButton").click(function (event) {
+        if ($("#checkbox_swap:checked").length > 0) {
+            swap = 1;
+        } else {
+            swap = 0;
+        }
+        id_fisa = $.urlParam('id_fisa');
+
+        $.post('api/createDoc/' + id_fisa + '/' + swap)
+            .done(function (response) {
+                console.log(response);
+                alert('Succesfully updated SWAP for document with id ' + id_fisa);
+            });
+
+    });
 
         $("#createButton").click(function (event) {
             event.preventDefault();
